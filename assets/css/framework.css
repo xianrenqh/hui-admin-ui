@@ -1,0 +1,1769 @@
+/* ============================================================
+   huiAdmin UI Framework - Complete CSS
+   Single-file stylesheet: light + dark theme, layout, components
+   ============================================================ */
+
+/* ========== CSS Variables ========== */
+:root {
+    /* Primary - 更现代的蓝色渐变 */
+    --hui-primary: #4f6ef7;
+    --hui-primary-light: #f0f4ff;
+    --hui-primary-hover: #3d5bd9;
+    --hui-primary-gradient: linear-gradient(135deg, #4f6ef7 0%, #7c5df8 100%);
+    --hui-primary-shadow: rgba(79, 110, 247, .3);
+    --hui-primary-shadow-sm: rgba(79, 110, 247, .15);
+    --hui-primary-shadow-lg: rgba(79, 110, 247, .4);
+    /* Sidebar - 更优雅的深色 */
+    --hui-side-bg: linear-gradient(180deg, #1e2140 0%, #161935 100%);
+    --hui-side-text: rgba(255, 255, 255, .7);
+    --hui-side-hover: rgba(255, 255, 255, .08);
+    --hui-side-active-bg: rgba(79, 110, 247, .2);
+    /* Header - 更纯净的白色 */
+    --hui-header-bg: rgba(255, 255, 255, .95);
+    --hui-header-text: #1a1a2e;
+    --hui-header-hover: rgba(79, 110, 247, .06);
+    /* Body - 更柔和的背景 */
+    --hui-body-bg: #f5f7fa;
+    /* Card - 更现代的卡片 */
+    --hui-card-bg: #fff;
+    --hui-card-shadow: 0 2px 12px rgba(0, 0, 0, .06),
+        0 1px 4px rgba(0, 0, 0, .04);
+    --hui-card-hover-shadow: 0 8px 24px rgba(0, 0, 0, .1),
+        0 2px 8px rgba(0, 0, 0, .06);
+    /* Text - 更好的对比度 */
+    --hui-text: #1a1a2e;
+    --hui-text-secondary: #5a6070;
+    --hui-text-muted: #8e95a5;
+    /* Border - 更细腻的边框 */
+    --hui-border: #e8ecf1;
+    --hui-border-light: #f2f4f7;
+    /* Shape - 更现代的圆角 */
+    --hui-radius: 8px;
+    --hui-radius-lg: 12px;
+    --hui-radius-xl: 16px;
+    --hui-transition: all .25s cubic-bezier(.4, 0, .2, 1);
+    /* Layout sizes */
+    --hui-side-width: 240px;
+    --hui-side-collapsed: 72px;
+    --hui-header-height: 60px;
+    --hui-tab-height: 48px;
+    --hui-footer-height: 0px;
+    /* Glass effect */
+    --hui-glass-bg: rgba(255, 255, 255, .8);
+    --hui-glass-blur: blur(12px);
+}
+
+/* ========== Dark Theme ========== */
+[data-theme="dark"] {
+    --hui-primary: #6b8aff;
+    --hui-primary-light: rgba(107, 138, 255, .12);
+    --hui-primary-hover: #5a7aff;
+    --hui-primary-gradient: linear-gradient(135deg, #6b8aff 0%, #8b6aff 100%);
+    --hui-primary-shadow: rgba(107, 138, 255, .3);
+    --hui-primary-shadow-sm: rgba(107, 138, 255, .15);
+    --hui-primary-shadow-lg: rgba(107, 138, 255, .4);
+    --hui-body-bg: #0f1117;
+    --hui-card-bg: #1a1d27;
+    --hui-card-shadow: 0 2px 12px rgba(0, 0, 0, .3),
+        0 1px 4px rgba(0, 0, 0, .2);
+    --hui-card-hover-shadow: 0 8px 24px rgba(0, 0, 0, .4),
+        0 2px 8px rgba(0, 0, 0, .3);
+    --hui-text: #e8ecf4;
+    --hui-text-secondary: #a0a8b8;
+    --hui-text-muted: #636a7a;
+    --hui-border: #2a2d3a;
+    --hui-border-light: #222530;
+    --hui-header-bg: rgba(26, 29, 39, .95);
+    --hui-header-text: #e8ecf4;
+    --hui-header-hover: rgba(107, 138, 255, .06);
+    --hui-side-bg: linear-gradient(180deg, #1a1d27 0%, #141720 100%);
+    --hui-side-text: rgba(255, 255, 255, .6);
+    --hui-side-hover: rgba(255, 255, 255, .06);
+    --hui-side-active-bg: rgba(107, 138, 255, .2);
+    --hui-glass-bg: rgba(26, 29, 39, .85);
+}
+
+/* ========== Global Reset & Base ========== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    font-size: 14px;
+    color: var(--hui-text);
+    background: var(--hui-body-bg);
+    overflow: hidden;
+}
+
+/* ========== Global Scrollbar ========== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--hui-primary-shadow);
+  border-radius: 3px;
+  transition: background .2s;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--hui-primary-shadow-lg);
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: rgba(107, 138, 255, .25);
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(107, 138, 255, .4);
+}
+
+/* ========== Layout ========== */
+.hui-layout {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+/* ---- Header ---- */
+.hui-header {
+    position: absolute;
+    top: 0;
+    left: var(--hui-side-width) !important;
+    right: 0;
+    height: var(--hui-header-height);
+    background: var(--hui-header-bg);
+    color: var(--hui-header-text);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--hui-border);
+    z-index: 10;
+    transition: left var(--hui-transition);
+    user-select: none;
+    backdrop-filter: var(--hui-glass-blur);
+    -webkit-backdrop-filter: var(--hui-glass-blur);
+}
+
+.hui-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hui-header-right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Collapse button */
+.hui-collapse-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--hui-radius);
+    cursor: pointer;
+    color: var(--hui-header-text);
+    font-size: 18px;
+    transition: var(--hui-transition);
+}
+
+.hui-collapse-btn:hover {
+    background: var(--hui-header-hover);
+}
+
+.hui-collapse-btn i {
+    transition: transform .3s ease;
+}
+
+.hui-layout.hui-collapsed .hui-collapse-btn i {
+    transform: rotate(180deg);
+}
+
+/* Breadcrumb */
+.hui-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--hui-text-secondary);
+    gap: 6px;
+}
+
+.hui-breadcrumb a {
+    color: var(--hui-text-secondary);
+    text-decoration: none;
+    transition: color .2s;
+}
+
+.hui-breadcrumb a:hover {
+    color: var(--hui-primary);
+}
+
+.hui-breadcrumb-sep {
+    margin: 0 2px;
+    color: var(--hui-text-muted);
+}
+
+/* Header action buttons */
+.hui-header-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--hui-radius);
+    cursor: pointer;
+    color: var(--hui-header-text);
+    font-size: 16px;
+    transition: var(--hui-transition);
+    position: relative;
+}
+
+.hui-header-action:hover {
+    background: var(--hui-header-hover);
+}
+
+/* User dropdown */
+.hui-user-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px 6px 8px;
+    border-radius: var(--hui-radius);
+    cursor: pointer;
+    transition: var(--hui-transition);
+    height: 40px;
+    position: relative;
+}
+
+.hui-user-dropdown:hover {
+    background: var(--hui-header-hover);
+}
+
+.hui-user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
+}
+
+.hui-user-name {
+    font-size: 14px;
+    font-weight: 500;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.hui-user-arrow {
+    font-size: 10px;
+    color: var(--hui-text-muted);
+}
+
+/* User dropdown menu */
+.hui-user-menu {
+    position: absolute;
+    top: calc(var(--hui-header-height) - 4px);
+    right: 8px;
+    min-width: 160px;
+    background: var(--hui-card-bg);
+    border: 1px solid var(--hui-border);
+    border-radius: var(--hui-radius-lg);
+    box-shadow: var(--hui-card-hover-shadow);
+    z-index: 100;
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity .25s, transform .25s, visibility .25s;
+}
+
+.hui-user-menu.show,
+.hui-user-dropdown.open .hui-user-menu,
+.hui-user-dropdown:hover .hui-user-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.hui-user-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: var(--hui-text);
+    cursor: pointer;
+    transition: background .2s;
+    white-space: nowrap;
+}
+
+.hui-user-menu-item:hover {
+    background: var(--hui-header-hover);
+    color: var(--hui-primary);
+}
+
+.hui-user-menu-divider {
+    height: 1px;
+    margin: 6px 0;
+    background: var(--hui-border-light);
+}
+
+/* ---- Sidebar ---- */
+.hui-side {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--hui-side-width) !important;
+    background: var(--hui-side-bg);
+    color: var(--hui-side-text);
+    z-index: 20;
+    transition: width var(--hui-transition);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(255, 255, 255, .08);
+}
+
+/* Sidebar logo area */
+.hui-side-logo {
+    height: var(--hui-header-height);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    flex-shrink: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.hui-side-logo-img {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px var(--hui-primary-shadow);
+}
+
+.hui-side-logo-text {
+    margin-left: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    opacity: 1;
+    transition: opacity .2s;
+    letter-spacing: .5px;
+}
+
+/* Sidebar menu container */
+.hui-side-menu {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 12px 0;
+}
+
+/* Sidebar menu items - layui nav-tree integration */
+.hui-side-menu .layui-nav-tree {
+    background: transparent;
+    border-radius: 0;
+    width: var(--hui-side-width);
+    transition: width var(--hui-transition);
+}
+
+.hui-side-menu .layui-nav-item {
+    line-height: 48px;
+    position: relative;
+    margin: 2px 8px;
+    border-radius: var(--hui-radius);
+}
+
+.hui-side-menu .layui-nav-item a {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    padding: 0 16px;
+    color: var(--hui-side-text);
+    text-decoration: none;
+    transition: all .2s;
+    white-space: nowrap;
+    overflow: hidden;
+    background: transparent !important;
+    border-radius: var(--hui-radius);
+}
+
+/* 一级菜单 hover */
+.hui-side-menu .layui-nav-item a:hover {
+    background: rgba(255, 255, 255, .06) !important;
+    color: var(--hui-primary, #4f6ef7) !important;
+}
+
+/* 一级菜单选中/展开 — 主题色 */
+.hui-side-menu .layui-nav-item.layui-this>a {
+    background: var(--hui-primary-gradient) !important;
+    color: #fff !important;
+    font-weight: 500;
+    box-shadow: 0 4px 12px var(--hui-primary-shadow);
+}
+
+/* 一级菜单展开（父级） — 主题色浅底 */
+.hui-side-menu .layui-nav-item.layui-nav-itemed>a {
+    background: var(--hui-primary-shadow-sm) !important;
+    color: var(--hui-primary, #4f6ef7) !important;
+}
+
+.hui-side-menu .layui-nav-item .hui-menu-icon {
+    margin-right: 12px;
+    font-size: 18px;
+    width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+    transition: margin var(--hui-transition);
+}
+
+.hui-side-menu .layui-nav-item .hui-menu-text {
+    opacity: 1;
+    transition: opacity .2s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hui-side-menu .layui-nav-item.layui-nav-itemed>a .layui-nav-more {
+    transform: rotate(90deg);
+}
+
+/* Child menu items */
+.hui-side-menu .layui-nav-child {
+    background: rgba(0, 0, 0, .1);
+    padding: 0;
+}
+
+.hui-side-menu .layui-nav-child dd {
+    line-height: 44px;
+}
+
+/* 一级子菜单基础样式 */
+.hui-side-menu .layui-nav-child dd a {
+    padding-left: 56px;
+    height: 44px;
+    font-size: 13px;
+    color: var(--hui-side-text);
+}
+
+/* 一级子菜单 hover — 淡色+主题色文字 */
+.hui-side-menu .layui-nav-child dd a:hover {
+    background: rgba(255, 255, 255, .04) !important;
+    color: var(--hui-primary, #4f6ef7) !important;
+}
+
+/* 一级子菜单选中 — 主题色浅底 */
+.hui-side-menu .layui-nav-child dd.layui-this>a {
+    background: var(--hui-primary-shadow-sm) !important;
+    color: var(--hui-primary, #4f6ef7) !important;
+    font-weight: 500;
+}
+
+/* 二级子菜单（更深层） */
+.hui-side-menu .layui-nav-child .layui-nav-child {
+    background: rgba(0, 0, 0, .12);
+}
+
+.hui-side-menu .layui-nav-child .layui-nav-child dd a {
+    padding-left: 72px;
+}
+
+.hui-side-menu .layui-nav-child .layui-nav-child dd a:hover {
+    background: rgba(255, 255, 255, .03) !important;
+    color: var(--hui-primary, #4f6ef7) !important;
+}
+
+.hui-side-menu .layui-nav-child .layui-nav-child dd.layui-this>a {
+    background: var(--hui-primary-shadow-sm) !important;
+    color: var(--hui-primary, #4f6ef7) !important;
+}
+
+/* 三级子菜单 */
+.hui-side-menu .layui-nav-child .layui-nav-child .layui-nav-child {
+    background: rgba(0, 0, 0, .14);
+}
+
+.hui-side-menu .layui-nav-child .layui-nav-child .layui-nav-child dd a {
+    padding-left: 88px;
+}
+
+/* ---- Collapsed Sidebar ---- */
+.hui-layout.hui-collapsed .hui-side {
+    width: var(--hui-side-collapsed) !important;
+}
+
+.hui-layout.hui-collapsed .hui-header {
+    left: var(--hui-side-collapsed) !important;
+}
+
+.hui-layout.hui-collapsed .hui-body {
+    left: var(--hui-side-collapsed) !important;
+}
+
+.hui-layout.hui-collapsed .hui-side-logo {
+    padding: 0 16px;
+    justify-content: center;
+}
+
+.hui-layout.hui-collapsed .hui-side-logo-text {
+    opacity: 0;
+    width: 0;
+    margin: 0;
+}
+
+.hui-layout.hui-collapsed .hui-side-menu .layui-nav-tree {
+    width: var(--hui-side-collapsed);
+}
+
+.hui-layout.hui-collapsed .hui-side-menu .layui-nav-item {
+    margin: 2px 8px;
+}
+
+.hui-layout.hui-collapsed .hui-side-menu .layui-nav-item a {
+    padding: 0;
+    justify-content: center;
+}
+
+.hui-layout.hui-collapsed .hui-side-menu .layui-nav-item .hui-menu-icon {
+    margin-right: 0;
+}
+
+.hui-layout.hui-collapsed .hui-side-menu .layui-nav-item .hui-menu-text,
+.hui-layout.hui-collapsed .hui-side-menu .layui-nav-item .layui-nav-more {
+    display: none;
+}
+
+.hui-layout.hui-collapsed .hui-side-menu .layui-nav-child {
+    display: none !important;
+}
+
+/* ---- Body (main content area) ---- */
+.hui-body {
+  position: absolute;
+  top: var(--hui-header-height);
+  left: var(--hui-side-width) !important;
+  right: 0;
+    bottom: var(--hui-footer-height);
+    background: var(--hui-body-bg);
+    transition: left var(--hui-transition);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---- Tab Bar ---- */
+.hui-tabs {
+    height: var(--hui-tab-height);
+    background: var(--hui-card-bg);
+    border-bottom: 1px solid var(--hui-border);
+    display: flex;
+    align-items: stretch;
+    flex-shrink: 0;
+    user-select: none;
+    position: relative;
+    backdrop-filter: var(--hui-glass-blur);
+    -webkit-backdrop-filter: var(--hui-glass-blur);
+}
+
+.hui-tabs-scroll {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.hui-tabs-list {
+    display: flex;
+    height: 100%;
+    white-space: nowrap;
+    transition: transform .2s;
+}
+
+.hui-tab-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    padding: 12px 18px;
+    font-size: 13px;
+    color: var(--hui-text-secondary);
+    cursor: pointer;
+    border-right: 1px solid var(--hui-border-light);
+    position: relative;
+    transition: color .2s, background .2s;
+    flex-shrink: 0;
+    min-width: 0;
+}
+
+.hui-tab-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: transparent;
+    transition: background .2s;
+}
+
+.hui-tab-item:hover {
+    color: var(--hui-primary);
+    background: var(--hui-primary-light);
+}
+
+.hui-tab-item.hui-tab-active {
+    color: var(--hui-primary);
+    background: var(--hui-body-bg);
+}
+
+.hui-tab-item.hui-tab-active::after {
+    background: var(--hui-primary);
+}
+
+.hui-tab-item .hui-tab-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.hui-tab-item .hui-tab-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+}
+
+.hui-tab-item .hui-tab-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-left: 6px;
+    border-radius: 50%;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity .2s, background .2s;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.hui-tab-item:hover .hui-tab-close {
+    opacity: 1;
+}
+
+.hui-tab-item .hui-tab-close:hover {
+    background: rgba(0, 0, 0, .1);
+    color: var(--hui-text);
+}
+
+.hui-tab-item.hui-tab-active .hui-tab-close {
+    opacity: 1;
+}
+
+/* Tab scroll buttons */
+.hui-tabs-prev,
+.hui-tabs-next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 100%;
+    cursor: pointer;
+    color: var(--hui-text-muted);
+    font-size: 12px;
+    flex-shrink: 0;
+    transition: color .2s, background .2s;
+    border-left: 1px solid var(--hui-border-light);
+}
+
+.hui-tabs-prev {
+    border-left: none;
+    border-right: 1px solid var(--hui-border-light);
+}
+
+.hui-tabs-prev:hover,
+.hui-tabs-next:hover {
+    color: var(--hui-primary);
+    background: var(--hui-header-hover);
+}
+
+/* Tab tools dropdown */
+.hui-tabs-tools {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 100%;
+    cursor: pointer;
+    color: var(--hui-text-muted);
+    font-size: 14px;
+    flex-shrink: 0;
+    border-left: 1px solid var(--hui-border-light);
+    position: relative;
+}
+
+.hui-tabs-tools:hover {
+    color: var(--hui-primary);
+    background: var(--hui-header-hover);
+}
+
+.hui-tabs-tools-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 140px;
+    background: var(--hui-card-bg);
+    border: 1px solid var(--hui-border);
+    border-radius: var(--hui-radius-lg);
+    box-shadow: var(--hui-card-hover-shadow);
+    z-index: 100;
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity .25s, transform .25s, visibility .25s;
+}
+
+.hui-tabs-tools-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.hui-tabs-tools-item {
+    padding: 10px 16px;
+    font-size: 14px;
+    color: var(--hui-text);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .2s;
+}
+
+.hui-tabs-tools-item:hover {
+    background: var(--hui-header-hover);
+    color: var(--hui-primary);
+}
+
+/* Tab right-click context menu */
+.hui-tab-contextmenu {
+    position: fixed;
+    min-width: 140px;
+    background: var(--hui-card-bg);
+    border: 1px solid var(--hui-border);
+    border-radius: var(--hui-radius-lg);
+    box-shadow: var(--hui-card-hover-shadow);
+    z-index: 9999;
+    padding: 8px 0;
+    display: none;
+}
+
+.hui-tab-contextmenu.show {
+    display: block;
+}
+
+.hui-tab-contextmenu-item {
+    padding: 10px 16px;
+    font-size: 14px;
+    color: var(--hui-text);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .2s;
+}
+
+.hui-tab-contextmenu-item:hover {
+    background: var(--hui-header-hover);
+    color: var(--hui-primary);
+}
+
+/* ---- Content Area (iframe) ---- */
+.hui-content {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: var(--hui-body-bg);
+}
+
+.hui-content iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: var(--hui-body-bg);
+}
+
+/* ---- Footer ---- */
+.hui-footer {
+    position: absolute;
+    bottom: 0;
+    left: var(--hui-side-width);
+    right: 0;
+    height: var(--hui-footer-height);
+    background: var(--hui-card-bg);
+    border-top: 1px solid var(--hui-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--hui-text-muted);
+    z-index: 5;
+    transition: left var(--hui-transition);
+}
+
+.hui-layout.hui-collapsed .hui-footer {
+    left: var(--hui-side-collapsed);
+}
+
+/* ========== Settings Panel ========== */
+.hui-settings {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 300px;
+    height: 100vh;
+    background: var(--hui-card-bg);
+    z-index: 200;
+    box-shadow: -8px 0 32px rgba(0, 0, 0, .15);
+    padding: 24px;
+    transition: right var(--hui-transition);
+    overflow-y: auto;
+}
+
+.hui-settings.show {
+    right: 0;
+}
+
+.hui-settings-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--hui-text);
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--hui-border);
+}
+
+.hui-settings-group {
+    margin-bottom: 24px;
+}
+
+.hui-settings-label {
+    font-size: 14px;
+    color: var(--hui-text-secondary);
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.hui-settings-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--hui-text-muted);
+    font-size: 16px;
+    transition: var(--hui-transition);
+}
+
+.hui-settings-close:hover {
+    background: var(--hui-header-hover);
+    color: var(--hui-text);
+}
+
+/* Color picker */
+.hui-color-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.hui-color-item {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color .2s, transform .2s;
+}
+
+.hui-color-item:hover {
+    transform: scale(1.15);
+}
+
+.hui-color-item.active {
+    border-color: var(--hui-text);
+    box-shadow: 0 0 0 2px var(--hui-card-bg), 0 0 0 4px currentColor;
+}
+
+/* Settings toggle switch */
+.hui-switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--hui-text);
+    user-select: none;
+}
+
+.hui-switch input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.hui-switch-slider {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    background: var(--hui-text-muted);
+    border-radius: 12px;
+    transition: background .3s;
+    flex-shrink: 0;
+}
+
+.hui-switch-slider::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform .3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+}
+
+.hui-switch input:checked+.hui-switch-slider {
+    background: var(--hui-primary);
+}
+
+.hui-switch input:checked+.hui-switch-slider::after {
+    transform: translateX(20px);
+}
+
+/* Settings select */
+.hui-settings-select {
+    width: 100%;
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid var(--hui-border);
+    border-radius: var(--hui-radius);
+    background: var(--hui-card-bg);
+    color: var(--hui-text);
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color .2s;
+}
+
+.hui-settings-select:focus {
+    border-color: var(--hui-primary);
+}
+
+/* Settings overlay */
+.hui-settings-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .4);
+    z-index: 199;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s, visibility .3s;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.hui-settings-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ========== Mobile Responsive ========== */
+@media (max-width: 768px) {
+    .hui-header {
+        left: 0 !important;
+        padding: 0 12px;
+    }
+
+    .hui-breadcrumb {
+        display: none;
+    }
+
+    /* 移动端隐藏PC折叠按钮，使用浮动圆球 */
+    .hui-collapse-btn {
+        display: none !important;
+    }
+
+    .hui-side {
+        position: fixed;
+        top: 0;
+        left: calc(-1 * var(--hui-side-width));
+        bottom: 0;
+        z-index: 150;
+        box-shadow: 8px 0 32px rgba(0, 0, 0, .2);
+        transition: left var(--hui-transition);
+        width: var(--hui-side-width) !important;
+    }
+
+    .hui-side.hui-side-show {
+        left: 0;
+    }
+
+    .hui-side .hui-side-logo {
+        padding: 0 24px !important;
+        justify-content: flex-start !important;
+    }
+
+    .hui-side .hui-side-logo-text {
+        opacity: 1 !important;
+        width: auto !important;
+        margin-left: 12px !important;
+    }
+
+    .hui-side .hui-side-menu .layui-nav-tree {
+        width: var(--hui-side-width) !important;
+    }
+
+    .hui-side .hui-side-menu .layui-nav-item {
+        margin: 2px 8px !important;
+    }
+
+    .hui-side .hui-side-menu .layui-nav-item a {
+        padding: 0 16px !important;
+        justify-content: flex-start !important;
+    }
+
+    .hui-side .hui-side-menu .layui-nav-item .hui-menu-icon {
+        margin-right: 12px !important;
+    }
+
+    .hui-side .hui-side-menu .layui-nav-item .hui-menu-text {
+        display: flex !important;
+    }
+
+    .hui-body {
+        left: 0 !important;
+    }
+
+    .hui-footer {
+        left: 0 !important;
+    }
+
+    /* Mobile sidebar overlay mask */
+    .hui-side-mask {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, .5);
+        z-index: 140;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .3s, visibility .3s;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+    }
+
+    .hui-side-mask.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Mobile menu toggle (floating button) */
+    .hui-mobile-toggle {
+        display: flex;
+        position: fixed;
+        bottom: 24px;
+        left: 24px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: var(--hui-primary-gradient);
+        color: #fff;
+        font-size: 20px;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 130;
+        box-shadow: 0 4px 16px var(--hui-primary-shadow-lg);
+        transition: transform .2s, box-shadow .2s;
+    }
+
+    .hui-mobile-toggle:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 24px var(--hui-primary-shadow-lg);
+    }
+
+    .hui-mobile-toggle:active {
+        transform: scale(.95);
+    }
+}
+
+/* Hide mobile toggle on desktop */
+@media (min-width: 769px) {
+    .hui-mobile-toggle {
+        display: none;
+    }
+
+    .hui-side-mask {
+        display: none;
+    }
+}
+
+/* ========== Loading Screen ========== */
+.hui-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--hui-body-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity .4s, visibility .4s;
+}
+
+.hui-loading.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.hui-loading-spinner {
+    width: 44px;
+    height: 44px;
+    border: 3px solid var(--hui-border);
+    border-top-color: var(--hui-primary);
+    border-radius: 50%;
+    animation: hui-spin .8s linear infinite;
+}
+
+.hui-loading-text {
+    margin-top: 20px;
+    color: var(--hui-text-muted);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+@keyframes hui-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========== Cards (inside iframe content) ========== */
+.hui-card {
+    background: var(--hui-card-bg);
+    border-radius: var(--hui-radius-lg);
+    box-shadow: var(--hui-card-shadow);
+    padding: 24px;
+    margin-bottom: 20px;
+    border: 1px solid var(--hui-border-light);
+    transition: box-shadow .3s, transform .3s;
+}
+
+.hui-card:hover {
+    box-shadow: var(--hui-card-hover-shadow);
+    transform: translateY(-2px);
+}
+
+.hui-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--hui-border-light);
+}
+
+.hui-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--hui-text);
+}
+
+.hui-card-body {
+    color: var(--hui-text-secondary);
+}
+
+/* ========== Scrollbar Styling ========== */
+.hui-side-menu::-webkit-scrollbar {
+    width: 4px;
+}
+
+.hui-side-menu::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, .15);
+    border-radius: 2px;
+}
+
+.hui-side-menu::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, .25);
+}
+
+.hui-side-menu::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.hui-tabs-scroll::-webkit-scrollbar {
+    height: 3px;
+}
+
+.hui-tabs-scroll::-webkit-scrollbar-thumb {
+    background: var(--hui-primary);
+    border-radius: 2px;
+    opacity: .5;
+}
+
+.hui-tabs-scroll::-webkit-scrollbar-thumb:hover {
+    opacity: .8;
+}
+
+.hui-tabs-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* ========== Utility Classes ========== */
+.hui-hidden {
+    display: none !important;
+}
+
+.hui-flex {
+    display: flex;
+}
+
+.hui-flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hui-text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ========== Transition Effects ========== */
+.hui-fade-enter {
+    opacity: 0;
+}
+
+.hui-fade-enter-active {
+    opacity: 1;
+    transition: opacity .3s;
+}
+
+.hui-fade-leave {
+    opacity: 1;
+}
+
+.hui-fade-leave-active {
+    opacity: 0;
+    transition: opacity .3s;
+}
+
+.hui-slide-down-enter {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.hui-slide-down-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity .3s, transform .3s;
+}
+
+/* ========== Modern Animations ========== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from { 
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from { 
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to { 
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Animation utility classes */
+.hui-animate-fadeIn {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.hui-animate-slideUp {
+    animation: slideUp 0.3s ease-out;
+}
+
+.hui-animate-slideDown {
+    animation: slideDown 0.3s ease-out;
+}
+
+.hui-animate-scaleIn {
+    animation: scaleIn 0.3s ease-out;
+}
+
+/* Loading skeleton effect */
+.hui-skeleton {
+    background: linear-gradient(90deg, 
+        var(--hui-border-light) 25%, 
+        var(--hui-border) 50%, 
+        var(--hui-border-light) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--hui-radius);
+}
+
+/* Ripple effect for buttons */
+.hui-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.hui-ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+.hui-ripple:active::after {
+    width: 200%;
+    height: 200%;
+}
+
+/* ========== JS-Generated Class Compatibility ========== */
+/* Tab bar - JS generates these class names */
+.hui-tab-nav {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.hui-tab-scroll-left,
+.hui-tab-scroll-right {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--hui-text-muted);
+    font-size: 12px;
+    flex-shrink: 0;
+    border-radius: var(--hui-radius);
+}
+
+.hui-tab-scroll-left:hover,
+.hui-tab-scroll-right:hover {
+    color: var(--hui-primary);
+    background: var(--hui-header-hover);
+}
+
+.hui-tab-scroll-body {
+    flex: 1;
+    overflow: hidden;
+}
+
+.hui-tab-ul {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    gap: 4px;
+}
+
+.hui-tab-tool {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.hui-tab-tool .layui-icon-down {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    color: var(--hui-text-muted);
+    border-radius: var(--hui-radius);
+}
+
+.hui-tab-tool .layui-icon-down:hover {
+    color: var(--hui-primary);
+    background: var(--hui-header-hover);
+}
+
+.hui-tab-tool-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 140px;
+    background: var(--hui-card-bg);
+    border: 1px solid var(--hui-border);
+    border-radius: var(--hui-radius-lg);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+    z-index: 200;
+    padding: 8px 0;
+}
+
+.hui-tab-tool:hover .hui-tab-tool-menu {
+    display: block;
+}
+
+.hui-tab-tool-item {
+    padding: 10px 16px;
+    font-size: 14px;
+    color: var(--hui-text);
+    cursor: pointer;
+    transition: var(--hui-transition);
+}
+
+.hui-tab-tool-item:hover {
+    background: var(--hui-header-hover);
+    color: var(--hui-primary);
+}
+
+.hui-tab-tool-divider {
+    height: 1px;
+    margin: 6px 0;
+    background: var(--hui-border-light);
+}
+
+/* Iframe items - JS generates these */
+.hui-iframe-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--hui-body-bg, #f5f7fa);
+}
+
+.hui-iframe-item.hui-iframe-active {
+    z-index: 1;
+}
+
+.hui-iframe-item.hui-iframe-hidden {
+    z-index: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hui-iframe-item iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: var(--hui-body-bg, #f5f7fa);
+}
+
+/* 暗黑 iframe 容器，消除加载白闪 */
+[data-theme="dark"] .hui-iframe-item {
+    background: #0f1117;
+}
+[data-theme="dark"] .hui-iframe-item iframe {
+    background: #0f1117;
+}
+
+/* Context menu */
+.hui-tab-context-menu {
+    position: fixed;
+    min-width: 140px;
+    background: var(--hui-card-bg);
+    border: 1px solid var(--hui-border);
+    border-radius: var(--hui-radius-lg);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .15);
+    z-index: 99999;
+    padding: 8px 0;
+    list-style: none;
+    margin: 0;
+}
+
+/* Settings panel */
+.hui-setting-panel .layui-form-label {
+    width: 80px;
+    padding: 9px 10px;
+    white-space: nowrap;
+}
+
+.hui-setting-panel .layui-input-block {
+    margin-left: 80px;
+}
+
+/* 通用表单标签加宽，防止4个汉字换行 */
+.layui-form-label {
+    width: 100px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.layui-input-block {
+    margin-left: 120px !important;
+}
+
+.hui-color-picker .layui-form-radio {
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.hui-color-picker .layui-form-radio i {
+    display: none;
+}
+
+.hui-color-picker .layui-form-radio span {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    padding: 0;
+}
+
+/* Light sidebar theme */
+.hui-side-light {
+    background: #fff !important;
+    border-right: 1px solid var(--hui-border);
+}
+
+.hui-side-light .hui-side-logo-text {
+    color: #1a1a2e !important;
+}
+
+.hui-side-light .layui-nav-item a {
+    color: #1a1a2e !important;
+}
+
+.hui-side-light .layui-nav-item a:hover {
+    color: var(--hui-primary) !important;
+}
+
+.hui-side-light .layui-nav-child {
+    background: #f8f9fb !important;
+}
+
+/* Light header theme */
+.hui-header-light {
+    /* default */
+}
+
+/* Dark header theme */
+.hui-header-dark {
+    background: rgba(26, 29, 39, .95);
+    color: #e8ecf4;
+    border-bottom-color: #2a2d3a;
+}
+
+.hui-header-dark .hui-collapse-btn,
+.hui-header-dark .hui-header-action,
+.hui-header-dark .hui-breadcrumb {
+    color: rgba(255, 255, 255, .7);
+}
+
+.hui-header-dark .hui-user-name {
+    color: rgba(255, 255, 255, .85);
+}
+
+/* ========== Drawer (右侧抽屉) ========== */
+.hui-drawer-mask {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,.4); z-index: 9998;
+  opacity: 0; visibility: hidden;
+  transition: opacity .3s, visibility .3s;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.hui-drawer-mask.open { opacity: 1; visibility: visible; }
+
+.hui-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: 360px; max-width: 100%;
+  background: var(--hui-card-bg, #fff);
+  box-shadow: -8px 0 32px rgba(0,0,0,.15);
+  z-index: 9999;
+  transform: translateX(100%);
+  transition: transform .3s cubic-bezier(.4, 0, .2, 1);
+  display: flex; flex-direction: column;
+}
+.hui-drawer.open { transform: translateX(0); }
+
+.hui-drawer-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--hui-border, #e8ecf1);
+  flex-shrink: 0;
+}
+.hui-drawer-header h3 { 
+  font-size: 18px; 
+  font-weight: 600; 
+  margin: 0;
+  color: var(--hui-text, #1a1a2e);
+}
+.hui-drawer-close { 
+  font-size: 20px; 
+  cursor: pointer; 
+  color: var(--hui-text-muted, #8e95a5);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all .2s;
+}
+.hui-drawer-close:hover { 
+  color: var(--hui-text, #1a1a2e);
+  background: var(--hui-header-hover, rgba(0,0,0,.04));
+}
+
+.hui-drawer-body { flex: 1; overflow-y: auto; padding: 24px; }
+
+/* 抽屉内表单 */
+.hui-drawer-body .layui-form-label { width: 80px !important; white-space: nowrap; }
+.hui-drawer-body .layui-input-block { margin-left: 100px !important; }
+.hui-drawer-body .set-item { margin-bottom: 24px; }
+.hui-drawer-body .set-item label { 
+  display: block; 
+  font-weight: 600; 
+  margin-bottom: 12px; 
+  font-size: 14px; 
+  color: var(--hui-text, #1a1a2e); 
+}
+.hui-drawer-body .color-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.hui-drawer-body .color-dot {
+  width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+  border: 2px solid transparent; transition: transform .2s, border-color .2s;
+  position: relative;
+}
+.hui-drawer-body .color-dot:hover { transform: scale(1.15); }
+.hui-drawer-body .color-dot.active { border-color: var(--hui-text, #1a1a2e); }
+.hui-drawer-body .color-dot.active::after {
+  content: '\2713'; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%); color: #fff; font-size: 12px; font-weight: bold;
+}
+
+/* 抽屉暗黑适配 */
+[data-theme="dark"] .hui-drawer-mask { background: rgba(0,0,0,.6); }
+[data-theme="dark"] .hui-drawer {
+  background: var(--hui-card-bg, #1a1d27);
+  box-shadow: -8px 0 32px rgba(0,0,0,.4);
+}
+[data-theme="dark"] .hui-drawer-header {
+  border-color: var(--hui-border, #2a2d3a);
+  background: #1e2130;
+}
+[data-theme="dark"] .hui-drawer-header h3 { color: var(--hui-text, #e8ecf4); }
+[data-theme="dark"] .hui-drawer-body .set-item label { color: var(--hui-text, #e8ecf4); }
+[data-theme="dark"] .hui-drawer-body .layui-form-select .layui-input {
+  background: #222530;
+  border-color: #2a2d3a;
+  color: #e8ecf4;
+}
+[data-theme="dark"] .hui-drawer-body .layui-form-select dl {
+  background: #222530;
+  border-color: #2a2d3a;
+  color: #a0a8b8;
+}
+[data-theme="dark"] .hui-drawer-body .layui-form-select dl dd:hover { background: #2a2d3a; }
+[data-theme="dark"] .hui-drawer-body .layui-form-select dl dd.layui-this { background: var(--hui-primary); }
+
+/* 页脚显示时调整 body bottom */
+.hui-show-footer { --hui-footer-height: 40px; }
+.hui-show-footer .hui-footer { display: flex !important; }
+
+/* ========== Print ========== */
+@media print {
+
+    .hui-header,
+    .hui-side,
+    .hui-footer,
+    .hui-tabs,
+    .hui-settings {
+        display: none !important;
+    }
+
+    .hui-body {
+        position: static;
+    }
+}

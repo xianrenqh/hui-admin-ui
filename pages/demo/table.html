@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据表格 - huiAdmin</title>
+  <link rel="stylesheet" href="../../lib/layui/css/layui.css">
+  <link rel="stylesheet" href="../../assets/css/common.css">
+  <link rel="stylesheet" href="../../assets/css/custom.css">
+  <style>
+    .demo-card {
+      background: var(--card-bg, #fff);
+      border-radius: 6px; padding: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .demo-card h3 { font-size: 15px; margin-bottom: 12px; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="demo-card">
+    <h3>数据表格示例</h3>
+    <div class="toolbar">
+      <button class="layui-btn layui-btn-sm" id="btnAdd"><i class="layui-icon layui-icon-add-1"></i> 新增</button>
+      <button class="layui-btn layui-btn-sm layui-btn-danger" id="btnBatchDel"><i class="layui-icon layui-icon-delete"></i> 批量删除</button>
+      <div class="layui-inline" style="float:right">
+        <input type="text" id="searchInput" placeholder="搜索用户名/邮箱" class="layui-input layui-input-sm" style="width:200px;display:inline-block">
+        <button class="layui-btn layui-btn-sm" id="btnSearch"><i class="layui-icon layui-icon-search"></i> 搜索</button>
+      </div>
+    </div>
+    <table id="demoTable" lay-filter="demoTable"></table>
+  </div>
+
+  <script src="../../lib/layui/layui.js"></script>
+  <script>
+  layui.use(['table', 'layer', 'form'], function () {
+    var table = layui.table;
+    var layer = layui.layer;
+    var $ = layui.$;
+
+    var demoData = [
+      { id: 1, username: 'admin', email: 'admin@huiadmin.com', role: '超级管理员', status: '正常', createTime: '2026-01-15 10:30:00' },
+      { id: 2, username: 'zhangsan', email: 'zhangsan@huiadmin.com', role: '编辑', status: '正常', createTime: '2026-02-20 14:22:00' },
+      { id: 3, username: 'lisi', email: 'lisi@huiadmin.com', role: '编辑', status: '禁用', createTime: '2026-03-05 09:15:00' },
+      { id: 4, username: 'wangwu', email: 'wangwu@huiadmin.com', role: '普通用户', status: '正常', createTime: '2026-03-18 16:45:00' },
+      { id: 5, username: 'zhaoliu', email: 'zhaoliu@huiadmin.com', role: '普通用户', status: '正常', createTime: '2026-04-01 11:00:00' },
+      { id: 6, username: 'sunqi', email: 'sunqi@huiadmin.com', role: '普通用户', status: '禁用', createTime: '2026-04-12 08:30:00' },
+      { id: 7, username: 'zhouba', email: 'zhouba@huiadmin.com', role: '编辑', status: '正常', createTime: '2026-04-25 13:20:00' },
+      { id: 8, username: 'wujiu', email: 'wujiu@huiadmin.com', role: '普通用户', status: '正常', createTime: '2026-05-08 15:10:00' },
+    ];
+
+    table.render({
+      elem: '#demoTable',
+      data: demoData,
+      page: true,
+      limit: 5,
+      limits: [5, 10, 20],
+      cols: [[
+        { type: 'checkbox', width: 50 },
+        { field: 'id', title: 'ID', width: 80, sort: true },
+        { field: 'username', title: '用户名', width: 120 },
+        { field: 'email', title: '邮箱', minWidth: 160 },
+        { field: 'role', title: '角色', width: 120 },
+        { field: 'status', title: '状态', width: 100, templet: function (d) {
+          return d.status === '正常' ? '<span style="color:#16baaa">正常</span>' : '<span style="color:#f56c6c">禁用</span>';
+        }},
+        { field: 'createTime', title: '创建时间', width: 180 },
+        { title: '操作', width: 150, templet: function (d) {
+          return '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>' +
+                 '<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>';
+        }}
+      ]]
+    });
+
+    table.on('tool(demoTable)', function (obj) {
+      var data = obj.data;
+      if (obj.event === 'edit') {
+        layer.msg('编辑：' + data.username);
+      } else if (obj.event === 'del') {
+        layer.confirm('确定删除用户 ' + data.username + ' 吗？', function (index) {
+          layer.close(index);
+          layer.msg('已删除', { icon: 1 });
+        });
+      }
+    });
+
+    $('#btnAdd').click(function () { layer.msg('打开新增表单'); });
+    $('#btnBatchDel').click(function () { layer.msg('批量删除'); });
+    $('#btnSearch').click(function () { layer.msg('搜索：' + $('#searchInput').val()); });
+  });
+  </script>
+</body>
+</html>

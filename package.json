@@ -1,0 +1,16 @@
+{
+  "name": "hui-admin-ui",
+  "version": "2.0.0",
+  "description": "huiAdmin UI - 现代化后台管理框架 (基于 Layui 2.13.6)",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx live-server . --port=3000 --open --wait=300",
+    "start": "npx http-server . -p 3000 -o --cors",
+    "build:zip": "powershell Compress-Archive -Path '*' -DestinationPath '../hui-admin-v2.0.zip' -Force"
+  },
+  "keywords": ["admin", "layui", "framework", "management", "backend", "dark-theme"],
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

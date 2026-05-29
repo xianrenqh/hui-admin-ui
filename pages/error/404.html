@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - huiAdmin</title>
+  <link rel="stylesheet" href="../../lib/layui/css/layui.css">
+  <link rel="stylesheet" href="../../assets/css/common.css">
+  <link rel="stylesheet" href="../../assets/css/custom.css">
+  <style>
+    body {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; text-align: center; padding: 0;
+    }
+    .error-wrap { padding: 40px; }
+    .error-code { font-size: 120px; font-weight: 900; color: var(--hui-primary, #1e9fff); line-height: 1; opacity: .3; }
+    .error-title { font-size: 22px; margin: 16px 0 8px; font-weight: 600; }
+    .error-desc { color: #999; margin-bottom: 24px; font-size: 14px; }
+    .error-actions { display: flex; gap: 12px; justify-content: center; }
+  </style>
+</head>
+<body>
+  <div class="error-wrap">
+    <div class="error-code">404</div>
+    <div class="error-title">页面未找到</div>
+    <div class="error-desc">您访问的页面不存在或已被移除</div>
+    <div class="error-actions">
+      <button class="layui-btn" onclick="history.back();">返回上页</button>
+      <button class="layui-btn layui-btn-primary" onclick="window.parent && window.parent.location ? window.parent.location.reload() : location.href='../../index.html';">回到首页</button>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录 - huiAdmin</title>
+  <link rel="stylesheet" href="lib/layui/css/layui.css">
+  <link rel="stylesheet" href="assets/css/login.css">
+  <!-- 用户自定义样式 -->
+  <link rel="stylesheet" href="assets/css/custom.css">
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-box">
+      <div class="login-header">
+        <img src="assets/images/logo.svg" alt="Logo" class="login-logo">
+        <h1>huiAdmin</h1>
+        <p>现代化后台管理框架</p>
+      </div>
+
+      <form class="layui-form" lay-filter="loginForm">
+        <div class="layui-form-item">
+          <div class="layui-input-wrap">
+            <i class="layui-icon layui-icon-username input-icon"></i>
+            <input type="text" name="username" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input" value="admin">
+          </div>
+        </div>
+
+        <div class="layui-form-item">
+          <div class="layui-input-wrap">
+            <i class="layui-icon layui-icon-password input-icon"></i>
+            <input type="password" name="password" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" value="123456">
+          </div>
+        </div>
+
+        <div class="layui-form-item verify-row">
+          <div class="layui-input-wrap" style="flex:1">
+            <i class="layui-icon layui-icon-vercode input-icon"></i>
+            <input type="text" name="captcha" lay-verify="required" placeholder="验证码" class="layui-input">
+          </div>
+          <canvas id="captchaCanvas" width="150" height="44" class="captcha-img" title="点击刷新验证码"></canvas>
+        </div>
+
+        <div class="layui-form-item" style="margin-top:24px">
+          <button class="layui-btn layui-btn-fluid login-btn" lay-submit lay-filter="loginSubmit">登 录</button>
+        </div>
+      </form>
+
+      <div class="login-footer">
+        <a href="register.html">立即注册</a>
+        <span class="login-footer-sep">|</span>
+        <a href="forgot.html">忘记密码</a>
+      </div>
+    </div>
+
+    <div class="login-copyright">
+      Copyright &copy; 2026 huiAdmin. All Rights Reserved.
+    </div>
+  </div>
+
+  <script src="lib/layui/layui.js"></script>
+  <script>
+  layui.use(['form', 'layer'], function () {
+    var form = layui.form;
+    var layer = layui.layer;
+
+    // 验证码
+    var captchaCanvas = document.getElementById('captchaCanvas');
+    var ctx = captchaCanvas.getContext('2d');
+
+    function randomColor() {
+      var r = Math.floor(Math.random() * 200) + 55;
+      var g = Math.floor(Math.random() * 200) + 55;
+      var b = Math.floor(Math.random() * 200) + 55;
+      return 'rgb(' + r + ',' + g + ',' + b + ')';
+    }
+
+    function drawCaptcha() {
+      var code = '';
+      var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      ctx.clearRect(0, 0, 150, 44);
+      ctx.fillStyle = '#f0f2f5';
+      ctx.fillRect(0, 0, 150, 44);
+
+      // 干扰线
+      for (var i = 0; i < 4; i++) {
+        ctx.strokeStyle = randomColor();
+        ctx.beginPath();
+        ctx.moveTo(Math.random() * 150, Math.random() * 44);
+        ctx.lineTo(Math.random() * 150, Math.random() * 44);
+        ctx.stroke();
+      }
+
+      // 干扰点
+      for (var j = 0; j < 20; j++) {
+        ctx.fillStyle = randomColor();
+        ctx.beginPath();
+        ctx.arc(Math.random() * 150, Math.random() * 44, 1, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+
+      // 验证码文字
+      for (var k = 0; k < 4; k++) {
+        var ch = chars[Math.floor(Math.random() * chars.length)];
+        code += ch;
+        ctx.fillStyle = randomColor();
+        ctx.font = 'bold 26px Arial';
+        ctx.fillText(ch, 10 + k * 33 + Math.random() * 6, 32 + Math.random() * 6);
+      }
+
+      captchaCanvas.setAttribute('data-code', code);
+    }
+
+    drawCaptcha();
+    captchaCanvas.addEventListener('click', drawCaptcha);
+
+    // 登录提交
+    form.on('submit(loginSubmit)', function (data) {
+      var inputCode = data.field.captcha.toUpperCase();
+      var realCode = captchaCanvas.getAttribute('data-code');
+
+      if (inputCode !== realCode) {
+        layer.msg('验证码错误', { icon: 2 });
+        drawCaptcha();
+        return false;
+      }
+
+      layer.msg('登录成功，正在跳转...', { icon: 1, time: 1000 }, function () {
+        location.href = 'index.html';
+      });
+      return false;
+    });
+  });
+  </script>
+</body>
+</html>

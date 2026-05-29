@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>忘记密码 - huiAdmin</title>
+  <link rel="stylesheet" href="lib/layui/css/layui.css">
+  <link rel="stylesheet" href="assets/css/login.css">
+  <!-- 用户自定义样式 -->
+  <link rel="stylesheet" href="assets/css/custom.css">
+  <style>
+    .forgot-box { width: 400px; padding: 36px; }
+    .step-indicator { display: flex; justify-content: center; margin-bottom: 28px; gap: 40px; }
+    .step { text-align: center; position: relative; }
+    .step-circle {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #e4e7ed; color: #999;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 600; margin: 0 auto 6px;
+    }
+    .step.active .step-circle { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; }
+    .step-text { font-size: 12px; color: #999; }
+    .step.active .step-text { color: #667eea; font-weight: 500; }
+    .step-connector {
+      position: absolute; top: 16px; left: 100%;
+      width: 40px; height: 2px; background: #e4e7ed;
+    }
+    .step.active .step-connector { background: #667eea; }
+    .step-form { display: none; }
+    .step-form.active { display: block; }
+  </style>
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-box forgot-box">
+      <div class="login-header">
+        <img src="assets/images/logo.svg" alt="Logo" class="login-logo">
+        <h1>找回密码</h1>
+        <p>重置您的账户密码</p>
+      </div>
+
+      <!-- 步骤指示器 -->
+      <div class="step-indicator">
+        <div class="step active" id="step1-indicator">
+          <div class="step-circle">1</div>
+          <div class="step-text">验证身份</div>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step" id="step2-indicator">
+          <div class="step-circle">2</div>
+          <div class="step-text">重置密码</div>
+        </div>
+      </div>
+
+      <!-- 步骤1：验证身份 -->
+      <form class="layui-form step-form active" id="step1-form" lay-filter="step1Form">
+        <div class="layui-form-item">
+          <div class="layui-input-wrap">
+            <i class="layui-icon layui-icon-username input-icon"></i>
+            <input type="text" name="account" lay-verify="required" placeholder="请输入用户名或邮箱" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-form-item verify-row">
+          <div class="layui-input-wrap" style="flex:1">
+            <i class="layui-icon layui-icon-vercode input-icon"></i>
+            <input type="text" name="captcha" lay-verify="required" placeholder="验证码" class="layui-input">
+          </div>
+          <canvas id="captchaCanvas" width="150" height="44" class="captcha-img" title="点击刷新验证码"></canvas>
+        </div>
+        <div class="layui-form-item" style="margin-top:24px">
+          <button class="layui-btn layui-btn-fluid login-btn" lay-submit lay-filter="step1Submit">下一步</button>
+        </div>
+      </form>
+
+      <!-- 步骤2：重置密码 -->
+      <form class="layui-form step-form" id="step2-form" lay-filter="step2Form">
+        <div class="layui-form-item">
+          <div class="layui-input-wrap">
+            <i class="layui-icon layui-icon-password input-icon"></i>
+            <input type="password" name="newPassword" lay-verify="required|pass" placeholder="请输入新密码(6-20位)" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-input-wrap">
+            <i class="layui-icon layui-icon-password input-icon"></i>
+            <input type="password" name="confirmPassword" lay-verify="required|repass" placeholder="请确认新密码" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-form-item" style="margin-top:24px">
+          <button class="layui-btn layui-btn-fluid login-btn" lay-submit lay-filter="step2Submit">重置密码</button>
+        </div>
+      </form>
+
+      <div class="login-footer">
+        <a href="login.html">返回登录</a>
+      </div>
+    </div>
+
+    <div class="login-copyright">
+      Copyright &copy; 2026 huiAdmin. All Rights Reserved.
+    </div>
+  </div>
+
+  <script src="lib/layui/layui.js"></script>
+  <script>
+  layui.use(['form', 'layer'], function () {
+    var form = layui.form;
+    var layer = layui.layer;
+    var $ = layui.$;
+
+    form.verify({
+      pass: [/^[\S]{6,20}$/, '密码必须6-20位且不能有空格'],
+      repass: function (value) {
+        var pwd = $('input[name="newPassword"]').val();
+        if (value !== pwd) return '两次输入的密码不一致';
+      }
+    });
+
+    // 验证码
+    var captchaCanvas = document.getElementById('captchaCanvas');
+    var ctx = captchaCanvas.getContext('2d');
+
+    function randomColor() {
+      return 'rgb(' + (Math.floor(Math.random() * 200) + 55) + ',' +
+             (Math.floor(Math.random() * 200) + 55) + ',' +
+             (Math.floor(Math.random() * 200) + 55) + ')';
+    }
+
+    function drawCaptcha() {
+      var code = '';
+      var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      ctx.clearRect(0, 0, 150, 44);
+      ctx.fillStyle = '#f0f2f5';
+      ctx.fillRect(0, 0, 150, 44);
+      for (var i = 0; i < 4; i++) {
+        ctx.strokeStyle = randomColor();
+        ctx.beginPath();
+        ctx.moveTo(Math.random() * 150, Math.random() * 44);
+        ctx.lineTo(Math.random() * 150, Math.random() * 44);
+        ctx.stroke();
+      }
+      for (var j = 0; j < 20; j++) {
+        ctx.fillStyle = randomColor();
+        ctx.beginPath();
+        ctx.arc(Math.random() * 150, Math.random() * 44, 1, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+      for (var k = 0; k < 4; k++) {
+        var ch = chars[Math.floor(Math.random() * chars.length)];
+        code += ch;
+        ctx.fillStyle = randomColor();
+        ctx.font = 'bold 26px Arial';
+        ctx.fillText(ch, 10 + k * 33 + Math.random() * 6, 32 + Math.random() * 6);
+      }
+      captchaCanvas.setAttribute('data-code', code);
+    }
+
+    drawCaptcha();
+    captchaCanvas.addEventListener('click', drawCaptcha);
+
+    // 步骤1提交
+    form.on('submit(step1Submit)', function (data) {
+      var inputCode = data.field.captcha.toUpperCase();
+      var realCode = captchaCanvas.getAttribute('data-code');
+      if (inputCode !== realCode) {
+        layer.msg('验证码错误', { icon: 2 });
+        drawCaptcha();
+        return false;
+      }
+      // 切换到步骤2
+      $('#step1-form').removeClass('active');
+      $('#step2-form').addClass('active');
+      $('#step1-indicator').removeClass('active');
+      $('#step2-indicator').addClass('active');
+      return false;
+    });
+
+    // 步骤2提交
+    form.on('submit(step2Submit)', function (data) {
+      layer.msg('密码重置成功！即将跳转登录页...', { icon: 1, time: 1500 }, function () {
+        location.href = 'login.html';
+      });
+      return false;
+    });
+  });
+  </script>
+</body>
+</html>

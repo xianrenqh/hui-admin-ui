@@ -1,0 +1,299 @@
+/* huiAdmin - 子页面公共样式 */
+/* 子页面如需自定义样式，可在引入 common.css 后引入 custom.css：
+ * <link rel="stylesheet" href="../../assets/css/common.css">
+ * <link rel="stylesheet" href="../../assets/css/custom.css">
+ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ========== CSS 变量定义 ========== */
+:root {
+  --hui-primary: #4f6ef7;
+  --hui-primary-light: #f0f4ff;
+  --hui-primary-hover: #3d5bd9;
+  --hui-primary-gradient: linear-gradient(135deg, #4f6ef7 0%, #7c5df8 100%);
+  --hui-primary-shadow: rgba(79, 110, 247, .3);
+  --hui-primary-shadow-sm: rgba(79, 110, 247, .15);
+  --hui-primary-shadow-lg: rgba(79, 110, 247, .4);
+  --hui-body-bg: #f5f7fa;
+  --card-bg: #fff;
+  --hui-text: #1a1a2e;
+  --hui-text-secondary: #5a6070;
+  --hui-text-muted: #8e95a5;
+  --hui-border: #e8ecf1;
+  --hui-border-light: #f2f4f7;
+  --hui-header-hover: rgba(79, 110, 247, .06);
+}
+
+[data-theme="dark"] {
+  --hui-primary: #6b8aff;
+  --hui-primary-light: rgba(107, 138, 255, .12);
+  --hui-primary-hover: #5a7aff;
+  --hui-primary-gradient: linear-gradient(135deg, #6b8aff 0%, #8b6aff 100%);
+  --hui-primary-shadow: rgba(107, 138, 255, .3);
+  --hui-primary-shadow-sm: rgba(107, 138, 255, .15);
+  --hui-primary-shadow-lg: rgba(107, 138, 255, .4);
+  --hui-body-bg: #0f1117;
+  --card-bg: #1a1d27;
+  --hui-text: #e8ecf4;
+  --hui-text-secondary: #a0a8b8;
+  --hui-text-muted: #636a7a;
+  --hui-border: #2a2d3a;
+  --hui-border-light: #222530;
+  --hui-header-hover: rgba(107, 138, 255, .06);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  padding: 20px;
+  min-height: 100vh;
+  background: var(--hui-body-bg);
+  color: var(--hui-text);
+}
+
+/* ========== 卡片容器 ========== */
+.page-card,
+.demo-card,
+.demo-section {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .06);
+  margin-bottom: 20px;
+  border: 1px solid var(--hui-border-light);
+  transition: box-shadow .3s, transform .3s;
+}
+.page-card:hover,
+.demo-card:hover,
+.demo-section:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .1);
+  transform: translateY(-2px);
+}
+[data-theme="dark"] .page-card,
+[data-theme="dark"] .demo-card,
+[data-theme="dark"] .demo-section {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .3);
+  border-color: var(--hui-border);
+}
+
+/* ========== 表单标签加宽 ========== */
+.layui-form-label {
+  width: 100px !important;
+  white-space: nowrap;
+}
+.layui-input-block {
+  margin-left: 120px !important;
+}
+
+.toolbar { margin-bottom: 16px; }
+
+/* ========== 暗黑模式 - 标题 ========== */
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4 { color: var(--hui-text); }
+
+/* ========== 暗黑模式 - 输入框 ========== */
+[data-theme="dark"] .layui-input,
+[data-theme="dark"] .layui-textarea {
+  background: #222530;
+  border-color: #2a2d3a;
+  color: #e8ecf4;
+}
+[data-theme="dark"] .layui-input:focus,
+[data-theme="dark"] .layui-textarea:focus {
+  border-color: var(--hui-primary);
+}
+[data-theme="dark"] .layui-input.layui-disabled,
+[data-theme="dark"] .layui-input:disabled {
+  background: #1a1d27;
+  color: #636a7a;
+}
+
+/* ========== 暗黑模式 - 下拉选择 ========== */
+[data-theme="dark"] .layui-form-select .layui-input { padding-right: 30px; }
+[data-theme="dark"] .layui-form-select dl {
+  background: #222530;
+  border-color: #2a2d3a;
+  color: #a0a8b8;
+}
+[data-theme="dark"] .layui-form-select dl dd:hover {
+  background: #2a2d3a;
+  color: #fff;
+}
+[data-theme="dark"] .layui-form-select dl dd.layui-this {
+  background: var(--hui-primary);
+  color: #fff;
+}
+[data-theme="dark"] .layui-form-select .layui-edge {
+  border-top-color: #636a7a;
+}
+
+/* ========== 暗黑模式 - 表单标签 ========== */
+[data-theme="dark"] .layui-form-label {
+  background: #1a1d27;
+  border-color: #2a2d3a;
+  color: #a0a8b8;
+}
+[data-theme="dark"] .layui-form-pane .layui-form-label {
+  background: #1a1d27;
+  border-color: #2a2d3a;
+}
+
+/* ========== 暗黑模式 - 单选框/复选框 ========== */
+[data-theme="dark"] .layui-form-radio > i:hover,
+[data-theme="dark"] .layui-form-checkbox > i:hover {
+  border-color: var(--hui-primary);
+}
+[data-theme="dark"] .layui-form-radio > div,
+[data-theme="dark"] .layui-form-checkbox > div { color: #a0a8b8; }
+[data-theme="dark"] .layui-form-checkbox[lay-skin="primary"] i {
+  background: #222530;
+  border-color: #2a2d3a;
+}
+[data-theme="dark"] .layui-form-checked[lay-skin="primary"] i {
+  background: var(--hui-primary) !important;
+  border-color: var(--hui-primary) !important;
+}
+
+/* ========== 暗黑模式 - 开关 ========== */
+[data-theme="dark"] .layui-form-onswitch {
+  background: var(--hui-primary);
+}
+[data-theme="dark"] .layui-form-offswitch {
+  background: #2a2d3a;
+}
+
+/* ========== 暗黑模式 - 完整表格 ========== */
+[data-theme="dark"] .layui-table-view { border-color: #2a2d3a; }
+[data-theme="dark"] .layui-table-box { background: #1a1d27; }
+[data-theme="dark"] .layui-table-header { background: #1e2130; }
+[data-theme="dark"] .layui-table {
+  background: #1a1d27;
+  color: #a0a8b8;
+}
+[data-theme="dark"] .layui-table th {
+  background: #1e2130;
+  color: #a0a8b8;
+  border-color: #2a2d3a;
+}
+[data-theme="dark"] .layui-table td {
+  border-color: #222530;
+  color: #a0a8b8;
+}
+[data-theme="dark"] .layui-table tbody tr:hover,
+[data-theme="dark"] .layui-table-click,
+[data-theme="dark"] .layui-table-hover {
+  background: #222530;
+}
+[data-theme="dark"] .layui-table-checked {
+  background: rgba(107, 138, 255, .15);
+}
+
+/* 表格复选框 */
+[data-theme="dark"] .layui-table-cell .layui-form-checkbox[lay-skin="primary"] i {
+  background: #222530;
+  border-color: #2a2d3a;
+}
+[data-theme="dark"] .layui-table-cell .layui-form-checked[lay-skin="primary"] i {
+  background: var(--hui-primary) !important;
+  border-color: var(--hui-primary) !important;
+}
+[data-theme="dark"] .layui-form-checkbox[lay-skin="primary"] span {
+  background: #222530;
+  color: #a0a8b8;
+}
+
+/* 表格分页 */
+[data-theme="dark"] .layui-table-page {
+  background: #1a1d27;
+  border-top-color: #2a2d3a;
+}
+[data-theme="dark"] .layui-table-page .layui-laypage {
+  color: #a0a8b8;
+}
+[data-theme="dark"] .layui-laypage a,
+[data-theme="dark"] .layui-laypage span {
+  background: #222530;
+  color: #a0a8b8;
+  border-color: #2a2d3a;
+}
+[data-theme="dark"] .layui-laypage a:hover {
+  color: var(--hui-primary);
+}
+[data-theme="dark"] .layui-laypage .layui-laypage-curr .layui-laypage-em {
+  background: var(--hui-primary);
+}
+[data-theme="dark"] .layui-laypage .layui-laypage-spr { color: #636a7a; }
+[data-theme="dark"] .layui-laypage input.layui-input {
+  background: #222530;
+  color: #e8ecf4;
+}
+[data-theme="dark"] .layui-table-page .layui-laypage-skip {
+  color: #a0a8b8;
+}
+[data-theme="dark"] .layui-laypage .layui-laypage-btn,
+[data-theme="dark"] .layui-laypage-skip .layui-btn {
+  background: var(--hui-primary, #4f6ef7) !important;
+  color: #fff !important;
+  border-color: var(--hui-primary, #4f6ef7) !important;
+}
+[data-theme="dark"] .layui-table-view select[lay-ignore] {
+  background: #222530;
+  color: #a0a8b8;
+  border-color: #2a2d3a;
+}
+
+/* 表格工具栏 */
+[data-theme="dark"] .layui-table-tool {
+  background: #1e2130;
+  color: #a0a8b8;
+}
+[data-theme="dark"] .layui-table-tool-temp { color: #636a7a; }
+[data-theme="dark"] .layui-table-tool-self { background: #1e2130; }
+
+/* 表格固定列 */
+[data-theme="dark"] .layui-table-fixed {
+  box-shadow: 2px 0 8px rgba(0, 0, 0, .5);
+}
+[data-theme="dark"] .layui-table-fixed-r {
+  box-shadow: -2px 0 8px rgba(0, 0, 0, .5);
+}
+
+/* ========== 暗黑模式 - 进度条 ========== */
+[data-theme="dark"] .layui-progress {
+  background: #222530;
+}
+
+/* ========== 暗黑模式 - 提示 ========== */
+[data-theme="dark"] .layui-form-mid { color: #636a7a; }
+
+/* ========== 暗黑模式 - 按钮 ========== */
+[data-theme="dark"] .layui-btn-primary {
+  background: #222530;
+  border-color: #2a2d3a;
+  color: #a0a8b8;
+}
+[data-theme="dark"] .layui-btn-primary:hover {
+  border-color: var(--hui-primary);
+  color: var(--hui-primary);
+}
+
+/* ========== 暗黑模式 - 分割线 ========== */
+[data-theme="dark"] hr,
+[data-theme="dark"] .layui-border-bottom { border-color: #2a2d3a; }
+
+/* ========== 滚动条 ========== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: rgba(79, 110, 247, .3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(79, 110, 247, .5); }
+[data-theme="dark"] ::-webkit-scrollbar-thumb { background: rgba(107, 138, 255, .25); }
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover { background: rgba(107, 138, 255, .4); }
+
+/* ========== 暗黑模式 - welcome 页面 ========== */
+[data-theme="dark"] .stat-info h3 { color: var(--hui-text); }
+[data-theme="dark"] .stat-info p { color: var(--hui-text-muted); }
+[data-theme="dark"] .welcome-header p { color: var(--hui-text-muted); }
+[data-theme="dark"] .panel { background: var(--card-bg); }
+[data-theme="dark"] .panel-header { border-color: var(--hui-border); color: var(--hui-text); }
+[data-theme="dark"] .panel-body td { color: var(--hui-text-secondary); }
+[data-theme="dark"] .task-list li { border-color: var(--hui-border); }

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表单元素 - huiAdmin</title>
+  <link rel="stylesheet" href="../../lib/layui/css/layui.css">
+  <link rel="stylesheet" href="../../assets/css/common.css">
+  <link rel="stylesheet" href="../../assets/css/custom.css">
+  <style>
+    .demo-section { margin-bottom: 28px; }
+    .demo-section h3 { font-size: 15px; font-weight: 600; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--hui-border, #ebeef5); }
+    .demo-section h4 { font-size: 13px; color: #999; margin: 16px 0 8px; font-weight: 500; }
+    .layui-form { max-width: 700px; }
+    .layui-form-pane .layui-form-label { width: 100px !important; }
+    .layui-form-pane .layui-input-block { margin-left: 120px !important; }
+  </style>
+</head>
+<body>
+
+  <!-- ========== 1. 基础输入框 ========== -->
+  <div class="demo-section">
+    <h3>一、基础输入框</h3>
+    <form class="layui-form">
+      <div class="layui-form-item">
+        <label class="layui-form-label">普通文本</label>
+        <div class="layui-input-block">
+          <input type="text" name="text1" placeholder="请输入内容" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">密码框</label>
+        <div class="layui-input-block">
+          <input type="password" name="pwd1" placeholder="请输入密码" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">数字输入</label>
+        <div class="layui-input-block">
+          <input type="number" name="num1" placeholder="纯数字" class="layui-input" style="width:180px">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">禁用状态</label>
+        <div class="layui-input-block">
+          <input type="text" name="dis1" value="禁止编辑" disabled class="layui-input layui-disabled">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">只读状态</label>
+        <div class="layui-input-block">
+          <input type="text" name="ro1" value="只能查看" readonly class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">提示图标</label>
+        <div class="layui-input-block">
+          <div class="layui-input-wrap" style="position:relative">
+            <i class="layui-icon layui-icon-username" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#bbb;z-index:1"></i>
+            <input type="text" name="icon1" placeholder="带图标的输入框" class="layui-input" style="padding-left:32px">
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <h4>layui-input-wrap 组合</h4>
+    <form class="layui-form">
+      <div class="layui-form-item">
+        <label class="layui-form-label">前后组合</label>
+        <div class="layui-input-block">
+          <div class="layui-input-group">
+            <div class="layui-input-prefix">https://</div>
+            <input type="text" name="url1" placeholder="域名" class="layui-input">
+            <div class="layui-input-suffix">.com</div>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">前后缀</label>
+        <div class="layui-input-block">
+          <div class="layui-input-group">
+            <div class="layui-input-prefix"><i class="layui-icon layui-icon-rmb"></i></div>
+            <input type="text" name="price1" value="0.00" class="layui-input">
+            <div class="layui-input-suffix">元</div>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">按钮组合</label>
+        <div class="layui-input-block">
+          <div class="layui-input-group">
+            <input type="text" name="search1" placeholder="搜索" class="layui-input">
+            <div class="layui-input-suffix">
+              <button type="button" class="layui-btn layui-btn-primary"><i class="layui-icon layui-icon-search"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ========== 2. 下拉选择 ========== -->
+  <div class="demo-section">
+    <h3>二、下拉选择</h3>
+    <form class="layui-form" lay-filter="selectForm">
+      <div class="layui-form-item">
+        <label class="layui-form-label">普通下拉</label>
+        <div class="layui-input-block">
+          <select name="city">
+            <option value="">请选择城市</option>
+            <option value="bj">北京</option>
+            <option value="sh">上海</option>
+            <option value="gz">广州</option>
+            <option value="sz">深圳</option>
+            <option value="hz">杭州</option>
+          </select>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">默认选中</label>
+        <div class="layui-input-block">
+          <select name="city2">
+            <option value="bj">北京</option>
+            <option value="sh" selected>上海</option>
+            <option value="gz">广州</option>
+          </select>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">分组下拉</label>
+        <div class="layui-input-block">
+          <select name="groupCity">
+            <option value="">请选择</option>
+            <optgroup label="华北">
+              <option value="bj">北京</option>
+              <option value="tj">天津</option>
+            </optgroup>
+            <optgroup label="华东">
+              <option value="sh">上海</option>
+              <option value="hz">杭州</option>
+            </optgroup>
+            <optgroup label="华南">
+              <option value="gz">广州</option>
+              <option value="sz">深圳</option>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">禁用下拉</label>
+        <div class="layui-input-block">
+          <select name="city3" disabled>
+            <option>不可选择</option>
+          </select>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">搜索下拉</label>
+        <div class="layui-input-block">
+          <select name="searchSel" lay-search>
+            <option value="">请搜索选择</option>
+            <option value="1">苹果 Apple</option>
+            <option value="2">香蕉 Banana</option>
+            <option value="3">橙子 Orange</option>
+            <option value="4">葡萄 Grape</option>
+            <option value="5">西瓜 Watermelon</option>
+            <option value="6">草莓 Strawberry</option>
+            <option value="7">芒果 Mango</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ========== 3. 单选框 & 复选框 ========== -->
+  <div class="demo-section">
+    <h3>三、单选框 &amp; 复选框</h3>
+    <form class="layui-form" lay-filter="radioCheckForm">
+      <div class="layui-form-item">
+        <label class="layui-form-label">单选框</label>
+        <div class="layui-input-block">
+          <input type="radio" name="gender" value="1" title="男" checked>
+          <input type="radio" name="gender" value="0" title="女">
+          <input type="radio" name="gender" value="2" title="保密">
+          <input type="radio" name="gender" value="3" title="未知" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">复选框</label>
+        <div class="layui-input-block">
+          <input type="checkbox" name="hobby" value="read" title="阅读" checked>
+          <input type="checkbox" name="hobby" value="run" title="运动">
+          <input type="checkbox" name="hobby" value="music" title="音乐" checked>
+          <input type="checkbox" name="hobby" value="game" title="游戏">
+          <input type="checkbox" name="hobby" value="travel" title="旅游" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">原始风格</label>
+        <div class="layui-input-block">
+          <input type="checkbox" name="switch" lay-skin="primary" title="原始风格" checked>
+          <input type="checkbox" name="switch" lay-skin="primary" title="禁用" disabled>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ========== 4. 开关 ========== -->
+  <div class="demo-section">
+    <h3>四、开关</h3>
+    <form class="layui-form" lay-filter="switchForm">
+      <div class="layui-form-item">
+        <label class="layui-form-label">标准开关</label>
+        <div class="layui-input-block">
+          <input type="checkbox" name="sw1" lay-skin="switch" lay-text="ON|OFF" checked>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">自定义文字</label>
+        <div class="layui-input-block">
+          <input type="checkbox" name="sw2" lay-skin="switch" lay-text="开启|关闭">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">禁用开关</label>
+        <div class="layui-input-block">
+          <input type="checkbox" name="sw3" lay-skin="switch" lay-text="ON|OFF" disabled checked>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ========== 5. 多行文本 ========== -->
+  <div class="demo-section">
+    <h3>五、多行文本域</h3>
+    <form class="layui-form" lay-filter="textareaForm">
+      <div class="layui-form-item">
+        <label class="layui-form-label">普通文本域</label>
+        <div class="layui-input-block">
+          <textarea name="remark1" placeholder="请输入内容" class="layui-textarea"></textarea>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">限定高度</label>
+        <div class="layui-input-block">
+          <textarea name="remark2" placeholder="限定高度" class="layui-textarea" style="height:100px"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ========== 6. layui-form-mid 提示文本 ========== -->
+  <div class="demo-section">
+    <h3>六、表单中间文本 (layui-form-mid) &amp; 描述文本 (layui-text-em)</h3>
+    <form class="layui-form">
+      <div class="layui-form-item">
+        <label class="layui-form-label">用户ID</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid layui-text-em">10001</div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">创建时间</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid layui-text-em">2026-05-27 16:30:00</div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">备注说明</label>
+        <div class="layui-input-block">
+          <div class="layui-form-mid">这是一段纯说明文字，用于展示只读信息。<span class="layui-text-em">高亮强调部分</span>，也可以放一个 <a href="javascript:;" class="layui-text-underline">链接</a>。</div>
+        </div>
+      </div>
+    </form>
+
+    <h4>对比：line-height 对齐说明 (纯 layui-input-block 内文字)</h4>
+    <form class="layui-form">
+      <div class="layui-form-item">
+        <label class="layui-form-label">说明信息</label>
+        <div class="layui-input-block" style="line-height:38px;color:#999">
+          <i class="layui-icon layui-icon-about"></i> 用户名注册后不可修改，请谨慎填写。
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">帮助提示</label>
+        <div class="layui-input-block">
+          <input type="text" name="help1" placeholder="输入邮箱" class="layui-input">
+          <div class="layui-form-mid layui-text-em" style="color:#999;padding-top:4px">
+            系统将发送验证邮件到此邮箱，请确保邮箱地址正确。
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ========== 7. 表单验证 ========== -->
+  <div class="demo-section">
+    <h3>七、表单验证 (lay-verify)</h3>
+    <form class="layui-form" lay-filter="verifyForm">
+      <div class="layui-form-item">
+        <label class="layui-form-label">必填</label>
+        <div class="layui-input-block">
+          <input type="text" name="req1" lay-verify="required" placeholder="必填项" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">手机号</label>
+        <div class="layui-input-block">
+          <input type="text" name="phone" lay-verify="required|phone" placeholder="请输入手机号" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-block">
+          <input type="text" name="email" lay-verify="required|email" placeholder="请输入邮箱" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">网址</label>
+        <div class="layui-input-block">
+          <input type="text" name="url" lay-verify="url" placeholder="http(s)://" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">身份证</label>
+        <div class="layui-input-block">
+          <input type="text" name="identity" lay-verify="identity" placeholder="18位身份证号" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">日期</label>
+        <div class="layui-input-block">
+          <input type="text" name="date" lay-verify="date" placeholder="yyyy-MM-dd" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">自定义验证</label>
+        <div class="layui-input-block">
+          <input type="text" name="custom1" lay-verify="required|username" placeholder="6-20位" class="layui-input">
+          <div class="layui-form-mid layui-text-em" style="color:#999;padding-top:4px">
+            自定义规则：必须 6-20 位字母、数字或下划线
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit lay-filter="verifySubmit">验证提交</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重 置</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ========== 8. 表单布局 ========== -->
+  <div class="demo-section">
+    <h3>八、表单布局 (layui-form-pane)</h3>
+    <form class="layui-form layui-form-pane" lay-filter="paneForm">
+      <div class="layui-form-item">
+        <label class="layui-form-label">项目名称</label>
+        <div class="layui-input-block">
+          <input type="text" name="projName" placeholder="请输入" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">所属分类</label>
+        <div class="layui-input-block">
+          <select name="category">
+            <option value="">请选择</option>
+            <option value="web">Web 应用</option>
+            <option value="mobile">移动应用</option>
+            <option value="desktop">桌面应用</option>
+          </select>
+        </div>
+      </div>
+    </form>
+
+    <h4>水平排列 (layui-inline)</h4>
+    <form class="layui-form">
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">日期范围</label>
+          <div class="layui-input-inline" style="width:170px">
+            <input type="text" id="startDate" placeholder="开始日期" class="layui-input">
+          </div>
+          <div class="layui-form-mid">—</div>
+          <div class="layui-input-inline" style="width:170px">
+            <input type="text" id="endDate" placeholder="结束日期" class="layui-input">
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">关键词</label>
+          <div class="layui-input-inline" style="width:200px">
+            <input type="text" placeholder="搜索关键词" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">状态</label>
+          <div class="layui-input-inline" style="width:150px">
+            <select>
+              <option value="">全部</option>
+              <option value="1">启用</option>
+              <option value="0">禁用</option>
+            </select>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <button class="layui-btn" lay-submit lay-filter="searchSubmit"><i class="layui-icon layui-icon-search"></i> 搜索</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ========== 9. 复杂表单 ========== -->
+  <div class="demo-section">
+    <h3>九、完整表单案例</h3>
+    <form class="layui-form" lay-filter="fullForm">
+      <div class="layui-form-item">
+        <label class="layui-form-label">用户名 <span style="color:red">*</span></label>
+        <div class="layui-input-block">
+          <input type="text" name="username" lay-verify="required|username" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+          <div class="layui-form-mid layui-text-em" style="color:#999;padding-top:4px">
+            2-20位字母、数字或下划线，注册后不可修改
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">密码 <span style="color:red">*</span></label>
+        <div class="layui-input-block">
+          <input type="password" name="password" lay-verify="required|pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">确认密码 <span style="color:red">*</span></label>
+        <div class="layui-input-block">
+          <input type="password" name="repass" lay-verify="required|repass" placeholder="请再次输入密码" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+          <input type="radio" name="sex" value="1" title="男" checked>
+          <input type="radio" name="sex" value="0" title="女">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">角色 <span style="color:red">*</span></label>
+        <div class="layui-input-block">
+          <select name="role" lay-verify="required">
+            <option value="">请选择角色</option>
+            <option value="admin">超级管理员</option>
+            <option value="editor">内容编辑</option>
+            <option value="viewer">普通用户</option>
+          </select>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">爱好</label>
+        <div class="layui-input-block">
+          <input type="checkbox" name="hobby" value="read" title="阅读" checked>
+          <input type="checkbox" name="hobby" value="sport" title="运动">
+          <input type="checkbox" name="hobby" value="music" title="音乐">
+          <input type="checkbox" name="hobby" value="movie" title="电影">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">启用</label>
+        <div class="layui-input-block">
+          <input type="checkbox" name="active" lay-skin="switch" lay-text="ON|OFF" checked>
+        </div>
+      </div>
+      <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+          <textarea name="remark" placeholder="请输入备注信息" class="layui-textarea"></textarea>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit lay-filter="fullSubmit">立即提交</button>
+          <button type="reset" class="layui-btn layui-btn-primary">重 置</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script src="../../lib/layui/layui.js"></script>
+  <script>
+  layui.use(['form', 'laydate', 'layer'], function () {
+    var form = layui.form;
+    var laydate = layui.laydate;
+    var layer = layui.layer;
+
+    // 日期选择器
+    laydate.render({ elem: '#startDate' });
+    laydate.render({ elem: '#endDate' });
+
+    // 自定义验证规则
+    form.verify({
+      username: [/^[a-zA-Z0-9_]{2,20}$/, '用户名必须2-20位字母、数字或下划线'],
+      pass: [/^[\S]{6,20}$/, '密码必须6-20位且不能有空格'],
+      repass: function (value) {
+        var pwd = $('input[name="password"]').val();
+        if (value !== pwd) return '两次输入的密码不一致';
+      }
+    });
+
+    // 完整表单提交
+    form.on('submit(fullSubmit)', function (data) {
+      layer.msg('提交数据：' + JSON.stringify(data.field), { icon: 1 });
+      return false;
+    });
+
+    // 验证表单提交
+    form.on('submit(verifySubmit)', function (data) {
+      layer.msg('验证通过：' + JSON.stringify(data.field), { icon: 1 });
+      return false;
+    });
+  });
+  </script>
+</body>
+</html>
