@@ -1,181 +1,227 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>huiAdmin - 后台管理系统</title>
-  <link rel="icon" href="assets/images/logo.svg" type="image/svg+xml">
-  <!-- Layui -->
-  <link rel="stylesheet" href="lib/layui/css/layui.css">
-  <!-- huiAdmin Framework -->
-  <link rel="stylesheet" href="assets/css/framework.css">
-  <!-- 用户自定义样式（不会被框架升级覆盖） -->
-  <link rel="stylesheet" href="assets/css/custom.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>huiAdmin - 后台管理系统</title>
+    <link rel="icon" href="assets/images/logo.svg" type="image/svg+xml">
+    <!-- Layui -->
+    <link rel="stylesheet" href="lib/layui/css/layui.css">
+    <!-- huiAdmin Framework -->
+    <link rel="stylesheet" href="assets/css/framework.css">
+    <!-- 用户自定义样式（不会被框架升级覆盖） -->
+    <link rel="stylesheet" href="assets/css/custom.css">
 </head>
+
 <body>
 
-  <!-- ========== Main Layout ========== -->
-  <div class="hui-layout">
-
-    <!-- === Sidebar === -->
-    <div class="hui-side">
-      <div class="hui-side-logo">
-        <img class="hui-side-logo-img" src="assets/images/logo.svg" alt="Logo">
-        <span class="hui-side-logo-text">huiAdmin</span>
-      </div>
-      <div class="hui-side-menu" id="hui-menu">
-        <!-- Menu rendered by JS -->
-      </div>
+    <!-- ========== Loading Screen ========== -->
+    <div class="hui-loading" id="hui-loading">
+        <div class="hui-loading-spinner"></div>
+        <div class="hui-loading-text">加载中...</div>
     </div>
 
-    <!-- === Header === -->
-    <div class="hui-header">
-      <div class="hui-header-left">
-        <div class="hui-collapse-btn" title="折叠菜单">
-          <i class="layui-icon layui-icon-shrink-right"></i>
-        </div>
-        <div class="hui-breadcrumb" id="hui-breadcrumb">
-          <i class="layui-icon layui-icon-home"></i>
-          <span>首页</span>
-        </div>
-      </div>
+    <!-- ========== Main Layout ========== -->
+    <div class="hui-layout">
 
-      <div class="hui-header-right">
-        <!-- Refresh -->
-        <div class="hui-header-action hui-refresh-btn" title="刷新">
-          <i class="layui-icon layui-icon-refresh-3"></i>
+        <!-- === Sidebar === -->
+        <div class="hui-side">
+            <div class="hui-side-logo">
+                <img class="hui-side-logo-img" src="assets/images/logo.svg" alt="Logo">
+                <span class="hui-side-logo-text">huiAdmin</span>
+            </div>
+            <div class="hui-side-menu" id="hui-menu">
+                <!-- Menu rendered by JS -->
+            </div>
         </div>
 
-        <!-- Dark Mode Toggle -->
-        <div class="hui-header-action hui-dark-btn" id="hui-dark-btn" title="暗黑模式">
-          <i class="layui-icon layui-icon-moon"></i>
+        <!-- === Header === -->
+        <div class="hui-header">
+            <div class="hui-header-left">
+                <div class="hui-collapse-btn" title="折叠菜单">
+                    <i class="layui-icon layui-icon-shrink-right"></i>
+                </div>
+                <div class="hui-breadcrumb" id="hui-breadcrumb">
+                    <i class="layui-icon layui-icon-home"></i>
+                    <span>首页</span>
+                </div>
+            </div>
+
+            <div class="hui-header-right">
+                <!-- Search -->
+                <div class="hui-header-action hui-search-btn" id="hui-search-btn" title="搜索 (Ctrl+K)">
+                    <i class="layui-icon layui-icon-search"></i>
+                </div>
+
+                <!-- Refresh -->
+                <div class="hui-header-action hui-refresh-btn" title="刷新">
+                    <i class="layui-icon layui-icon-refresh-3"></i>
+                </div>
+
+                <!-- Dark Mode Toggle -->
+                <div class="hui-header-action hui-dark-btn" id="hui-dark-btn" title="暗黑模式">
+                    <i class="layui-icon layui-icon-moon"></i>
+                </div>
+
+                <!-- Fullscreen -->
+                <div class="hui-header-action hui-fullscreen-btn" title="全屏">
+                    <i class="layui-icon layui-icon-screen-full"></i>
+                </div>
+
+                <!-- User dropdown -->
+                <div class="hui-user-dropdown" id="hui-user-dropdown">
+                    <div class="hui-user-avatar" id="hui-user-avatar"
+                        style="display:flex;align-items:center;justify-content:center;background:var(--hui-primary);color:#fff;font-size:14px;font-weight:600;">
+                        A</div>
+                    <span class="hui-user-name" id="hui-user-name">管理员</span>
+                    <span class="hui-user-arrow"><i class="layui-icon layui-icon-down"></i></span>
+                    <ul class="hui-user-menu">
+                        <li class="hui-user-menu-item" data-action="profile">
+                            <i class="layui-icon layui-icon-user"></i> 个人信息
+                        </li>
+                        <li class="hui-user-menu-item" data-action="password">
+                            <i class="layui-icon layui-icon-password"></i> 修改密码
+                        </li>
+                        <li class="hui-user-menu-divider"></li>
+                        <li class="hui-user-menu-item" data-action="logout">
+                            <i class="layui-icon layui-icon-logout"></i> 退出登录
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Settings -->
+                <div class="hui-header-action hui-setting-btn" title="设置">
+                    <i class="layui-icon layui-icon-set"></i>
+                </div>
+            </div>
         </div>
 
-        <!-- Fullscreen -->
-        <div class="hui-header-action hui-fullscreen-btn" title="全屏">
-          <i class="layui-icon layui-icon-screen-full"></i>
+        <!-- === Body (Tab Bar + Content) === -->
+        <div class="hui-body">
+            <!-- Tab Bar -->
+            <div class="hui-tabs" id="hui-tab">
+                <!-- Tabs rendered by JS -->
+            </div>
+            <!-- Iframe Content -->
+            <div class="hui-content" id="hui-iframe">
+                <!-- Iframes rendered by JS -->
+            </div>
         </div>
 
-        <!-- User dropdown -->
-        <div class="hui-user-dropdown" id="hui-user-dropdown">
-          <div class="hui-user-avatar" id="hui-user-avatar" style="display:flex;align-items:center;justify-content:center;background:var(--hui-primary);color:#fff;font-size:14px;font-weight:600;">A</div>
-          <span class="hui-user-name" id="hui-user-name">管理员</span>
-          <span class="hui-user-arrow"><i class="layui-icon layui-icon-down"></i></span>
-          <ul class="hui-user-menu">
-            <li class="hui-user-menu-item" data-action="profile">
-              <i class="layui-icon layui-icon-user"></i> 个人信息
-            </li>
-            <li class="hui-user-menu-item" data-action="password">
-              <i class="layui-icon layui-icon-password"></i> 修改密码
-            </li>
-            <li class="hui-menu-divider"></li>
-            <li class="hui-user-menu-item" data-action="logout">
-              <i class="layui-icon layui-icon-logout"></i> 退出登录
-            </li>
-          </ul>
+        <!-- Page Footer -->
+        <div class="hui-footer" id="hui-footer" style="display:none">
+            Copyright &copy; 2026 huiAdmin. All Rights Reserved.
         </div>
 
-        <!-- Settings -->
-        <div class="hui-header-action hui-setting-btn" title="设置">
-          <i class="layui-icon layui-icon-set"></i>
-        </div>
-      </div>
     </div>
 
-    <!-- === Body (Tab Bar + Content) === -->
-    <div class="hui-body">
-      <!-- Tab Bar -->
-      <div class="hui-tabs" id="hui-tab">
-        <!-- Tabs rendered by JS -->
-      </div>
-      <!-- Iframe Content -->
-      <div class="hui-content" id="hui-iframe">
-        <!-- Iframes rendered by JS -->
-      </div>
+    <!-- ===== Drawer (从右侧滑出) ===== -->
+    <div class="hui-drawer-mask" id="hui-drawer-mask"></div>
+    <div class="hui-drawer" id="hui-drawer">
+        <div class="hui-drawer-header">
+            <h3>系统设置</h3>
+            <i class="layui-icon layui-icon-close hui-drawer-close" id="hui-drawer-close"></i>
+        </div>
+        <div class="hui-drawer-body" id="hui-drawer-body">
+            <!-- Settings rendered by JS -->
+        </div>
     </div>
 
-    <!-- Page Footer -->
-    <div class="hui-footer" id="hui-footer" style="display:none">
-      Copyright &copy; 2026 huiAdmin. All Rights Reserved.
+    <!-- ===== Search Overlay (全局搜索) ===== -->
+    <div class="hui-search-overlay" id="hui-search-overlay">
+        <div class="hui-search-box">
+            <div class="hui-search-input-wrap">
+                <i class="layui-icon layui-icon-search"></i>
+                <input type="text" id="hui-search-input" placeholder="搜索菜单或功能..." autocomplete="off">
+                <kbd>Esc</kbd>
+            </div>
+            <div class="hui-search-results" id="hui-search-results">
+                <!-- Results rendered by JS -->
+            </div>
+        </div>
     </div>
 
-  </div>
-
-  <!-- ===== Drawer (从右侧滑出) ===== -->
-  <div class="hui-drawer-mask" id="hui-drawer-mask"></div>
-  <div class="hui-drawer" id="hui-drawer">
-    <div class="hui-drawer-header">
-      <h3>系统设置</h3>
-      <i class="layui-icon layui-icon-close hui-drawer-close" id="hui-drawer-close"></i>
+    <!-- ===== Mobile Mask & Toggle ===== -->
+    <div class="hui-side-mask" id="hui-side-mask"></div>
+    <div class="hui-mobile-toggle" id="hui-mobile-toggle" title="菜单">
+        <i class="layui-icon layui-icon-spread-left"></i>
     </div>
-    <div class="hui-drawer-body" id="hui-drawer-body">
-      <!-- Settings rendered by JS -->
-    </div>
-  </div>
 
-  <!-- ===== Mobile Mask & Toggle ===== -->
-  <div class="hui-side-mask" id="hui-side-mask"></div>
-  <div class="hui-mobile-toggle" id="hui-mobile-toggle" title="菜单">
-    <i class="layui-icon layui-icon-spread-left"></i>
-  </div>
+    <!-- === Layui JS === -->
+    <script src="lib/layui/layui.js"></script>
+    <!-- === huiAdmin Framework JS (module registration) === -->
+    <script src="assets/js/framework.js"></script>
+    <!-- === Boot === -->
+    <script src="config.js"></script>
+    <script>
+        layui.use(['admin', 'layer', 'jquery'], function () {
+            var admin = layui.admin;
+            var layer = layui.layer;
+            var $ = layui.$;
 
-  <!-- === Layui JS === -->
-  <script src="lib/layui/layui.js"></script>
-  <!-- === huiAdmin Framework JS (module registration) === -->
-  <script src="assets/js/framework.js"></script>
-  <!-- === Boot === -->
-  <script src="config.js"></script>
-  <script>
-  layui.use(['admin', 'layer', 'jquery'], function () {
-    var admin = layui.admin;
-    var layer = layui.layer;
-    var $ = layui.$;
+            // Close user dropdown when clicking outside
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('#hui-user-dropdown').length) {
+                    document.getElementById('hui-user-dropdown').classList.remove('open');
+                }
+            });
 
-    // Close user dropdown when clicking outside
-    $(document).on('click', function (e) {
-      if (!$(e.target).closest('#hui-user-dropdown').length) {
-        document.getElementById('hui-user-dropdown').classList.remove('open');
-      }
-    });
+            // Use global HUI_CONFIG if available
+            var config = typeof HUI_CONFIG !== 'undefined' ? HUI_CONFIG : {};
 
-    // Use global HUI_CONFIG if available
-    var config = typeof HUI_CONFIG !== 'undefined' ? HUI_CONFIG : {};
+            // Map HUI_CONFIG to admin boot format
+            admin.boot({
+                title: config.logo ? config.logo.title : 'huiAdmin',
+                siteName: config.logo ? config.logo.title : 'huiAdmin',
+                menuData: (config.menu && config.menu.data) ? config.menu.data : [],
+                menuAccordion: config.menu ? config.menu.accordion !== false : true,
+                homeTabId: config.home ? config.home.id : 'home',
+                homeTitle: config.home ? config.home.title : '首页',
+                homeUrl: config.home ? config.home.url : 'pages/welcome.html',
+                maxTabs: config.tabs ? config.tabs.max : 20
+            });
 
-    // Map HUI_CONFIG to admin boot format
-    admin.boot({
-      title: config.logo ? config.logo.title : 'huiAdmin',
-      siteName: config.logo ? config.logo.title : 'huiAdmin',
-      menuData: (config.menu && config.menu.data) ? config.menu.data : [],
-      menuAccordion: config.menu ? config.menu.accordion !== false : true,
-      homeTabId: config.home ? config.home.id : 'home',
-      homeTitle: config.home ? config.home.title : '首页',
-      homeUrl: config.home ? config.home.url : 'pages/welcome.html'
-    });
+            // Set user info
+            if (config.user) {
+                var userName = document.getElementById('hui-user-name');
+                var userAvatar = document.getElementById('hui-user-avatar');
+                if (userName) userName.textContent = config.user.name || '管理员';
+                if (userAvatar && config.user.avatar) {
+                    userAvatar.innerHTML = '<img src="' + config.user.avatar + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover">';
+                }
+            }
 
-    // Set user info
-    if (config.user) {
-      var userName = document.getElementById('hui-user-name');
-      var userAvatar = document.getElementById('hui-user-avatar');
-      if (userName) userName.textContent = config.user.name || '管理员';
-      if (userAvatar && config.user.avatar) {
-        userAvatar.innerHTML = '<img src="' + config.user.avatar + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover">';
-      }
-    }
+            // Set logo
+            if (config.logo) {
+                var logoImg = document.querySelector('.hui-side-logo-img');
+                var logoText = document.querySelector('.hui-side-logo-text');
+                if (logoImg && config.logo.image) logoImg.src = config.logo.image;
+                if (logoText && config.logo.title) logoText.textContent = config.logo.title;
+            }
 
-    // Set logo
-    if (config.logo) {
-      var logoImg = document.querySelector('.hui-side-logo-img');
-      var logoText = document.querySelector('.hui-side-logo-text');
-      if (logoImg && config.logo.image) logoImg.src = config.logo.image;
-      if (logoText && config.logo.title) logoText.textContent = config.logo.title;
-    }
+            // Ready callback
+            if (config.onReady) {
+                config.onReady();
+            }
 
-    // Ready callback
-    if (config.onReady) {
-      config.onReady();
-    }
-  });
-  </script>
+            // 隐藏加载动画
+            var loaderTime = (config.loaderTime !== undefined) ? config.loaderTime : 1200;
+            if (config.loader !== false) {
+                setTimeout(function () {
+                    var loading = document.getElementById('hui-loading');
+                    if (loading) {
+                        loading.classList.add('hide');
+                        setTimeout(function () { loading.remove(); }, 500);
+                    }
+                }, loaderTime);
+            } else {
+                var loading = document.getElementById('hui-loading');
+                if (loading) loading.remove();
+            }
+        });
+    </script>
 
 </body>
+
 </html>
