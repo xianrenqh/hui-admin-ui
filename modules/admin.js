@@ -735,12 +735,16 @@ layui.define(['form', 'layer', 'element', 'hui-util', 'theme', 'menu', 'hui-tab'
 
             body.innerHTML = html;
 
-            // 同步当前值
+            // 使用 layui form 渲染下拉
+            form.render('select', 'hui-setting-form');
+
+            // 同步当前值（在 form.render 之后设置，避免被重置）
             document.getElementById('setMenuTheme').value = util.getStore('menu_theme') || 'dark';
             document.getElementById('setHeaderTheme').value = util.getStore('header_theme') || 'dark';
+            document.getElementById('setGlassBlur').value = currentBlur;
             document.getElementById('setFooter').value = util.getStore('show_footer') || '0';
 
-            // 使用 layui form 渲染下拉
+            // 触发 layui form 的同步
             form.render('select', 'hui-setting-form');
 
             // 颜色选择
@@ -751,6 +755,14 @@ layui.define(['form', 'layer', 'element', 'hui-util', 'theme', 'menu', 'hui-tab'
                     self.setColor(dot.getAttribute('data-color'), dot.getAttribute('data-second'));
                 });
             });
+
+            // 原生事件监听（备选方案，确保事件能触发）
+            var glassBlurSelect = document.getElementById('setGlassBlur');
+            if (glassBlurSelect) {
+                glassBlurSelect.addEventListener('change', function () {
+                    self._applyGlassBlur(parseInt(this.value, 10));
+                });
+            }
 
             // 使用 layui form 事件监听（仅首次绑定）
             if (!this._settingEventsBound) {

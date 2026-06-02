@@ -88,12 +88,12 @@ body {
 
 /* ========== 表单标签加宽 ========== */
 .layui-form-label {
-    width: 100px !important;
+    width: 145px !important;
     white-space: nowrap;
 }
 
 .layui-input-block {
-    margin-left: 120px !important;
+    margin-left: 145px !important;
 }
 
 .toolbar {
